@@ -116,7 +116,7 @@ label{display:block;font-size:13px;color:var(--mute);margin-top:8px}label input,
 <div class="row"><button class="btn" id="rad">افزودن</button></div><div id="rl"></div></div>
 <div class="card"><h3>پشتیبان و خروجی</h3>
 <div class="row" style="margin-top:0"><button class="btn" id="bx">خروجی اکسل</button><button class="btn g" id="bb">دانلود بکاپ</button><button class="btn g" id="br">بازیابی</button></div>
-<div id="rs" hidden><textarea id="ta" placeholder="محتوای بکاپ را اینجا بچسبان"></textarea><div class="row"><button class="btn" id="rgo">بازیابی</button></div></div>
+<div id="rs" hidden><label>انتخاب فایل بکاپ<input type="file" id="rf" accept=".json,application/json,text/plain"></label><div class="mu" style="margin-top:10px">یا محتوای بکاپ را اینجا بچسبان:</div><textarea id="ta" placeholder="محتوای بکاپ را اینجا بچسبان"></textarea><div class="row"><button class="btn" id="rgo">بازیابی</button></div></div>
 </div>
 </section>
 </main>
@@ -367,6 +367,7 @@ function setR(){
   $('#bt').value=S.bud.t?fa(S.bud.t):'';
   $('#bl').innerHTML=Object.entries(S.bud.c).map(([n,v])=>`<div class="cr">${ic(n,'e')}<div class="cb"><div><span>${esc(n)}</span><b>${fa(v)}</b></div></div><button class="x" data-b="${esc(n)}" aria-label="حذف">×</button></div>`).join('');
   $('#rl').innerHTML=S.rec.map((r,k)=>`<div class="cr">${ic(r.c,r.k)}<div class="cb"><div><span>${esc(r.n||r.c)}</span><b>${fa(r.a)}</b></div><small>هر ماه، روز ${pd(r.day)} — ${r.k=='i'?'درآمد':'خرج'}</small></div><button class="x" data-r="${k}" aria-label="حذف">×</button></div>`).join('')}
+$('#rf').onchange=async e=>{const f=e.target.files[0];if(f){$('#ta').value=await f.text();$('#rgo').click()}};
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){applyRec();render()}});
 function render(){head();list();$('#bd').innerHTML=budgetHTML();if(!$('#rep').hidden)report();if(!$('#set').hidden)setR()}
 
